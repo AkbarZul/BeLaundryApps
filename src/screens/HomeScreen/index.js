@@ -4,13 +4,36 @@ import {
   Text,
   StyleSheet,
   Image,
+  ImageBackground,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import {Laundry, Dry, Coolicon} from '../../assets';
+import axios from 'axios';
+import LinearGradient from 'react-native-linear-gradient';
 
-const HomeScreen = () => {
+const API_URL = 'http://192.168.1.5:8000';
+
+const HomeScreen = ({navigation}) => {
+  const [product, setProduct] = useState([]);
+
+  const getProducts = () => {
+    axios
+      .get(`${API_URL}/products`)
+      .then(res => {
+        const datas = res.data.data;
+        console.log('ini product', datas);
+        setProduct(datas);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
   return (
     <>
       <ScrollView
@@ -18,57 +41,99 @@ const HomeScreen = () => {
         vertical={true}
         showsVerticalScrollIndicator={false}>
         {/* <View style={{flex: 1, marginBottom: 10}}> */}
-          <SafeAreaView style={styles.containerWelcome}>
-            <Text style={styles.containerText}>Welcome, John</Text>
-          </SafeAreaView>
-          <View style={styles.subContainer}>
-            <View style={styles.cardBalance}>
-              <View style={styles.containerCircle}>
-                <View style={styles.circle}></View>
-                <View style={styles.circleRed}></View>
+        <SafeAreaView style={styles.containerWelcome}>
+          <Text style={styles.containerText}>Welcome, John</Text>
+        </SafeAreaView>
+        <View style={styles.subContainer}>
+          <View style={styles.cardBalance}>
+            <View style={styles.containerCircle}>
+              <View style={styles.circle}></View>
+              <View style={styles.circleRed}></View>
+            </View>
+            <View style={styles.containerBalance}>
+              <Text style={styles.containerBalanceText}>Your Balance</Text>
+            </View>
+            <View style={styles.containerPrice}>
+              <Text style={styles.containerPriceText}>$ 200.00</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.containerOrder}>
+          <Text style={styles.orderText}>PREVIOUS ORDER</Text>
+        </View>
+        <View style={styles.laundry}>
+          <View style={styles.bagLaundry}>
+            <View style={styles.bagLaundryContents}>
+              <View>
+                <Image style={styles.pictureLaundry} source={Laundry} />
               </View>
-              <View style={styles.containerBalance}>
-                <Text style={styles.containerBalanceText}>Your Balance</Text>
-              </View>
-              <View style={styles.containerPrice}>
-                <Text style={styles.containerPriceText}>$ 200.00</Text>
+              <View>
+                <Text style={styles.bagLaundryText}>Bag of Laundry</Text>
+                <Text style={styles.laundryTotalText}>Total Order</Text>
+                <Text style={styles.laundryPriceText}>$ 180.00</Text>
               </View>
             </View>
           </View>
-          <View style={styles.containerOrder}>
-            <Text style={styles.orderText}>PREVIOUS ORDER</Text>
+          <LinearGradient
+            start={{x: 0, y: 0.25}}
+            end={{x: 0.5, y: 1.0}}
+            colors={['#0099ee', '#CAECFF']}
+            style={styles.invoice}>
+            <Image style={styles.pictureInvoice} source={Coolicon} />
+            <Text style={styles.textInvoice}>INVOICE</Text>
+          </LinearGradient>
+        </View>
+        <View style={styles.containerOrder}>
+          <Text style={styles.mostOrderText}>YOUR MOST ORDERED</Text>
+        </View>
+        <View style={styles.continerDry}>
+          <Image style={styles.pictureDry} source={Dry} />
+        </View>
+        <LinearGradient
+          colors={['#0000', 'transparent', '#2D9CDB']}
+          style={styles.continerDrylinear}>
+          <View style={{marginTop: 160}}>
+            <Text style={styles.textDryCleaning}>Dry Cleaning</Text>
+            <Text style={styles.textDryTotal}>12x | total of $ 4.000</Text>
           </View>
-          <View style={styles.laundry}>
-            <View style={styles.bagLaundry}>
-              <View style={styles.bagLaundryContents}>
-                <View>
-                  <Image style={styles.pictureLaundry} source={Laundry} />
-                </View>
-                <View>
-                  <Text style={styles.bagLaundryText}>Bag of Laundry</Text>
-                  <Text style={styles.laundryTotalText}>Total Order</Text>
-                  <Text style={styles.laundryPriceText}>$ 180.00</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.invoice}>
-              <Image style={styles.pictureInvoice} source={Coolicon} />
-              <Text style={styles.textInvoice}>INVOICE</Text>
-            </View>
-          </View>
-          <View style={styles.containerOrder}>
-            <Text style={styles.mostOrderText}>YOUR MOST ORDERED</Text>
-          </View>
-          <View style={styles.continerDry}>
-            <Image style={styles.pictureDry} source={Dry} />
-          </View>
-          <View>
-          <Text style={styles.textDryTotal}>12x | total of $ 4.000</Text>
-          <Text style={styles.textDryCleaning}>Dry Cleaning</Text>
-          </View>
-          <View style={styles.containerOrder}>
-            <Text style={styles.mostOrderText}>OUR LATEST PRODUCT</Text>
-          </View>
+        </LinearGradient>
+        <View style={styles.containerOrder}>
+          <Text style={styles.mostOrderText}>OUR LATEST PRODUCT</Text>
+        </View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.slider}>
+          {product.map(
+            ({id, product_name, product_price, category_name, image}) => {
+              // const images = `${API_URL}${JSON.parse(image).shift()}`
+              // console.log('ini image', images)
+              return (
+                <TouchableOpacity key={id} style={{marginHorizontal: 5}}>
+                  <Image
+                    source={{uri: `${API_URL}${JSON.parse(image).shift()}`}}
+                    style={{width: 200, height: 200, borderRadius: 10}}
+                  />
+                  <LinearGradient
+                    colors={['#0000', 'transparent', '#2D9CDB']} style={styles.containerLatest}>
+                    {/* style={{
+                    //   paddingHorizontal: 20,
+                    //   marginBottom: 50,
+                    //   marginTop: -80,
+                    //   width: 200,
+                    //   height: 200
+                    // }}> */}
+                    <View style={{marginTop: 120}}>
+                    <Text style={styles.textCategory}>{category_name}</Text>
+                    <Text style={styles.textProduct}>{product_name}</Text>
+                    <Text style={styles.textProductPrice}>{product_price}</Text>
+                    </View>
+                  </LinearGradient>
+                </TouchableOpacity>
+              );
+            },
+          )}
+        </ScrollView>
         {/* </View> */}
       </ScrollView>
     </>
@@ -92,6 +157,7 @@ const styles = StyleSheet.create({
     // display: 'flex',
     // justifyContent: 'center',
     paddingHorizontal: '7%',
+    // zIndex: 1
     // flex: 1
   },
   containerText: {
@@ -105,13 +171,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     marginTop: -100,
+    // zIndex: 1,
+    // position: 'absolute'
+    // zIndex: 2
   },
   cardBalance: {
     backgroundColor: '#ccedff',
     width: 341,
     height: 202,
     borderRadius: 10,
-    // zIndex: 2,
+    zIndex: 1,
   },
   containerCircle: {
     display: 'flex',
@@ -124,8 +193,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginTop: -20,
     marginLeft: -19,
-    // zIndex: 1,
-    //   position: 'absolute'
+    zIndex: 2,
+    // position: 'relative'
   },
   circleRed: {
     backgroundColor: '#F36868',
@@ -180,7 +249,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
   },
   invoice: {
-    backgroundColor: '#0099ee',
+    // backgroundColor: '#0099ee',
     width: 112,
     height: 95,
     borderTopRightRadius: 5,
@@ -237,16 +306,25 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#3b97cb',
     marginTop: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
   continerDry: {
     display: 'flex',
     alignItems: 'center',
+    // zIndex: 1
+  },
+  continerDrylinear: {
+    width: 340,
+    height: 250,
+    // paddingLeft: 10,
+    marginHorizontal: 28,
+    marginTop: -250,
+    borderRadius: 5,
   },
   pictureDry: {
     width: 340,
     height: 250,
-    borderRadius: 5
+    borderRadius: 5,
     // marginBottom: 180
   },
   textDryCleaning: {
@@ -255,7 +333,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     paddingHorizontal: '13%',
     color: '#ffffff',
-    marginTop: -60,
+    // marginTop: -60,
     // marginBottom: 100
   },
   textDryTotal: {
@@ -264,7 +342,41 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingHorizontal: '13%',
     color: '#ffffff',
-    marginTop: -55
+    // marginTop: -55,
+  },
+  slider: {
+    marginTop: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    // justifyContent: 'center'
+    marginRight: 10,
+    paddingHorizontal: '5%',
+  },
+  textCategory: {
+    fontSize: 10,
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    color: '#ffffff',
+  },
+  textProduct: {
+    fontSize: 20,
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    color: '#ffffff',
+  },
+  textProductPrice: {
+    fontSize: 25,
+    fontFamily: 'Roboto',
+    fontWeight: '200',
+    color: '#ffffff',
+  },
+  containerLatest: {
+    width: 200,
+    height: 200,
+    marginTop: -200,
+    paddingHorizontal: 15,
+    marginBottom: 30,
+    borderRadius: 10
   }
 });
 
