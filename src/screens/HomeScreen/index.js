@@ -6,59 +6,70 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView
 } from 'react-native';
 import {Laundry, Dry, Coolicon} from '../../assets';
 
 const HomeScreen = () => {
   return (
     <>
-      <ScrollView style={{backgroundColor: '#E7F5FD'}}>
-        <View style={styles.container}>
-          <Text style={styles.containerText}>Welcome, John</Text>
-        </View>
-        <View style={styles.subContainer}>
-          <View style={styles.cardBalance}>
-            <View style={styles.containerCircle}>
-              <View style={styles.circle}></View>
-              <View style={styles.circleRed}></View>
-            </View>
-            <View style={styles.containerBalance}>
-              <Text style={styles.containerBalanceText}>Your Balance</Text>
-            </View>
-            <View style={styles.containerPrice}>
-              <Text style={styles.containerPriceText}>$ 200.00</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.containerOrder}>
-          <Text style={styles.orderText}>PREVIOUS ORDER</Text>
-        </View>
-        <View style={styles.laundry}>
-          <View style={styles.bagLaundry}>
-            <View style={styles.bagLaundryContents}>
-              <View>
-                <Image style={styles.pictureLaundry} source={Laundry} />
+      <ScrollView
+        style={styles.container}
+        vertical={true}
+        showsVerticalScrollIndicator={false}>
+        {/* <View style={{flex: 1, marginBottom: 10}}> */}
+          <SafeAreaView style={styles.containerWelcome}>
+            <Text style={styles.containerText}>Welcome, John</Text>
+          </SafeAreaView>
+          <View style={styles.subContainer}>
+            <View style={styles.cardBalance}>
+              <View style={styles.containerCircle}>
+                <View style={styles.circle}></View>
+                <View style={styles.circleRed}></View>
               </View>
-              <View>
-                <Text style={styles.bagLaundryText}>Bag of Laundry</Text>
-                <Text style={styles.laundryTotalText}>Total Order</Text>
-                <Text style={styles.laundryPriceText}>$ 180.00</Text>
+              <View style={styles.containerBalance}>
+                <Text style={styles.containerBalanceText}>Your Balance</Text>
+              </View>
+              <View style={styles.containerPrice}>
+                <Text style={styles.containerPriceText}>$ 200.00</Text>
               </View>
             </View>
           </View>
-          <View style={styles.invoice}>
-            <Image style={styles.pictureInvoice} source={Coolicon} />
-            <Text style={styles.textInvoice}>INVOICE</Text>
+          <View style={styles.containerOrder}>
+            <Text style={styles.orderText}>PREVIOUS ORDER</Text>
           </View>
-        </View>
-        <View style={styles.containerOrder}>
-          <Text style={styles.mostOrderText}>YOUR MOST ORDERED</Text>
-        </View>
-        <View style={styles.continerDry}>
-          <Image style={styles.pictureDry} source={Dry} />
-        </View>
-        
-      <Text>Test</Text>
+          <View style={styles.laundry}>
+            <View style={styles.bagLaundry}>
+              <View style={styles.bagLaundryContents}>
+                <View>
+                  <Image style={styles.pictureLaundry} source={Laundry} />
+                </View>
+                <View>
+                  <Text style={styles.bagLaundryText}>Bag of Laundry</Text>
+                  <Text style={styles.laundryTotalText}>Total Order</Text>
+                  <Text style={styles.laundryPriceText}>$ 180.00</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.invoice}>
+              <Image style={styles.pictureInvoice} source={Coolicon} />
+              <Text style={styles.textInvoice}>INVOICE</Text>
+            </View>
+          </View>
+          <View style={styles.containerOrder}>
+            <Text style={styles.mostOrderText}>YOUR MOST ORDERED</Text>
+          </View>
+          <View style={styles.continerDry}>
+            <Image style={styles.pictureDry} source={Dry} />
+          </View>
+          <View>
+          <Text style={styles.textDryTotal}>12x | total of $ 4.000</Text>
+          <Text style={styles.textDryCleaning}>Dry Cleaning</Text>
+          </View>
+          <View style={styles.containerOrder}>
+            <Text style={styles.mostOrderText}>OUR LATEST PRODUCT</Text>
+          </View>
+        {/* </View> */}
       </ScrollView>
     </>
   );
@@ -66,20 +77,28 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: '#E7F5FD',
+    // paddingBottom: 10,
+    // height: 500
+    // marginEnd: 10
+  },
+  containerWelcome: {
     backgroundColor: '#F36868',
     width: '100%',
-    height: '30%',
+    height: 250,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     // display: 'flex',
     // justifyContent: 'center',
     paddingHorizontal: '7%',
+    // flex: 1
   },
   containerText: {
     fontFamily: 'Roboto',
     fontSize: 21,
     fontWeight: '500',
-    marginTop: 50,
+    marginTop: 70,
     color: '#ffffff',
   },
   subContainer: {
@@ -92,7 +111,7 @@ const styles = StyleSheet.create({
     width: 341,
     height: 202,
     borderRadius: 10,
-    zIndex: 2,
+    // zIndex: 2,
   },
   containerCircle: {
     display: 'flex',
@@ -105,7 +124,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginTop: -20,
     marginLeft: -19,
-    zIndex: 1,
+    // zIndex: 1,
     //   position: 'absolute'
   },
   circleRed: {
@@ -218,16 +237,35 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#3b97cb',
     marginTop: 30,
+    marginBottom: 20
   },
   continerDry: {
     display: 'flex',
     alignItems: 'center',
-    paddingBottom: 10
   },
   pictureDry: {
-    width: 320,
-    height: 320,
+    width: 340,
+    height: 250,
+    borderRadius: 5
+    // marginBottom: 180
   },
+  textDryCleaning: {
+    fontFamily: 'Roboto',
+    fontSize: 23,
+    fontWeight: '700',
+    paddingHorizontal: '13%',
+    color: '#ffffff',
+    marginTop: -60,
+    // marginBottom: 100
+  },
+  textDryTotal: {
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    fontWeight: '500',
+    paddingHorizontal: '13%',
+    color: '#ffffff',
+    marginTop: -55
+  }
 });
 
 export default HomeScreen;
