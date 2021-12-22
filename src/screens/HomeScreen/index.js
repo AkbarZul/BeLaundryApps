@@ -74,14 +74,19 @@ const HomeScreen = ({navigation}) => {
               </View>
             </View>
           </View>
-          <LinearGradient
-            start={{x: 0, y: 0.25}}
-            end={{x: 0.5, y: 1.0}}
-            colors={['#0099ee', '#CAECFF']}
-            style={styles.invoice}>
-            <Image style={styles.pictureInvoice} source={Coolicon} />
-            <Text style={styles.textInvoice}>INVOICE</Text>
-          </LinearGradient>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Order');
+            }}>
+            <LinearGradient
+              start={{x: 0, y: 0.25}}
+              end={{x: 0.5, y: 1.0}}
+              colors={['#0099ee', '#CAECFF']}
+              style={styles.invoice}>
+              <Image style={styles.pictureInvoice} source={Coolicon} />
+              <Text style={styles.textInvoice}>INVOICE</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
         <View style={styles.containerOrder}>
           <Text style={styles.mostOrderText}>YOUR MOST ORDERED</Text>
@@ -115,7 +120,8 @@ const HomeScreen = ({navigation}) => {
                     style={{width: 200, height: 200, borderRadius: 10}}
                   />
                   <LinearGradient
-                    colors={['#0000', 'transparent', '#2D9CDB']} style={styles.containerLatest}>
+                    colors={['#0000', 'transparent', '#2D9CDB']}
+                    style={styles.containerLatest}>
                     {/* style={{
                     //   paddingHorizontal: 20,
                     //   marginBottom: 50,
@@ -124,9 +130,11 @@ const HomeScreen = ({navigation}) => {
                     //   height: 200
                     // }}> */}
                     <View style={{marginTop: 120}}>
-                    <Text style={styles.textCategory}>{category_name}</Text>
-                    <Text style={styles.textProduct}>{product_name}</Text>
-                    <Text style={styles.textProductPrice}>{product_price}</Text>
+                      <Text style={styles.textCategory}>{category_name}</Text>
+                      <Text style={styles.textProduct}>{product_name}</Text>
+                      <Text style={styles.textProductPrice}>
+                        {product_price}
+                      </Text>
                     </View>
                   </LinearGradient>
                 </TouchableOpacity>
@@ -376,8 +384,8 @@ const styles = StyleSheet.create({
     marginTop: -200,
     paddingHorizontal: 15,
     marginBottom: 30,
-    borderRadius: 10
-  }
+    borderRadius: 10,
+  },
 });
 
 export default HomeScreen;
