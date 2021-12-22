@@ -114,7 +114,14 @@ const HomeScreen = ({navigation}) => {
               // const images = `${API_URL}${JSON.parse(image).shift()}`
               // console.log('ini image', images)
               return (
-                <TouchableOpacity key={id} style={{marginHorizontal: 5}}>
+                <TouchableOpacity
+                  key={id}
+                  onPress={() => {
+                    navigation.navigate('DetailProduct', {
+                      itemId: id,
+                    });
+                  }}
+                  style={{marginHorizontal: 5}}>
                   <Image
                     source={{uri: `${API_URL}${JSON.parse(image).shift()}`}}
                     style={{width: 200, height: 200, borderRadius: 10}}
@@ -122,18 +129,12 @@ const HomeScreen = ({navigation}) => {
                   <LinearGradient
                     colors={['#0000', 'transparent', '#2D9CDB']}
                     style={styles.containerLatest}>
-                    {/* style={{
-                    //   paddingHorizontal: 20,
-                    //   marginBottom: 50,
-                    //   marginTop: -80,
-                    //   width: 200,
-                    //   height: 200
-                    // }}> */}
                     <View style={{marginTop: 120}}>
                       <Text style={styles.textCategory}>{category_name}</Text>
                       <Text style={styles.textProduct}>{product_name}</Text>
                       <Text style={styles.textProductPrice}>
-                        {product_price}
+                        $ 
+                        {product_price}.00/pc
                       </Text>
                     </View>
                   </LinearGradient>
