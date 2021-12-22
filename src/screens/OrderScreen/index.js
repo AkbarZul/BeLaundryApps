@@ -41,10 +41,14 @@ const OrderScreen = ({navigation}) => {
             </View>
             <View>
               <View style={styles.containerLaundry}>
-                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                  <View>
-                    <Image source={Laundry} />
-                  </View>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Image source={Laundry} />
+
                   <View>
                     <Text style={styles.textBag}>Bag of Laundry</Text>
                     <Text style={styles.textQty}>Qty: 2</Text>
@@ -61,7 +65,12 @@ const OrderScreen = ({navigation}) => {
             </View>
             <View>
               <View style={styles.containerLaundry}>
-                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
                   <View>
                     <Image source={Laundry} />
                   </View>
@@ -81,7 +90,12 @@ const OrderScreen = ({navigation}) => {
             </View>
             <View>
               <View style={styles.containerLaundry}>
-                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
                   <View>
                     <Image source={Laundry} />
                   </View>
@@ -90,7 +104,7 @@ const OrderScreen = ({navigation}) => {
                     <Text style={styles.textQty}>Qty: 1</Text>
                   </View>
                 </View>
-                <View>
+                <View style={{marginLeft: 40}}>
                   <View style={{display: 'flex', alignItems: 'center'}}>
                     <Text style={styles.textTotal}>Total</Text>
                   </View>
@@ -98,6 +112,10 @@ const OrderScreen = ({navigation}) => {
                 </View>
               </View>
               <View style={styles.line}></View>
+            </View>
+            <View style={styles.totalOrder}>
+              <Text style={styles.totalText}>Total Order</Text>
+              <Text style={styles.totalText}>$ 204.00</Text>
             </View>
           </View>
         </View>
@@ -165,9 +183,9 @@ const styles = StyleSheet.create({
   containerLaundry: {
     display: 'flex',
     flexDirection: 'row',
-    // paddingHorizontal: 10,
+    paddingHorizontal: 10,
     marginTop: 20,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   textBag: {
@@ -202,6 +220,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#0099ee',
     // marginHorizontal: 20,
   },
+  totalOrder: {
+    backgroundColor: '#0099EE',
+    height: 90,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    paddingHorizontal: 10
+  },
+  totalText: {
+      fontFamily: 'Roboto',
+      fontSize: 18,
+      fontWeight: '700',
+      color: '#fff'
+  }
 });
 
 export default OrderScreen;
