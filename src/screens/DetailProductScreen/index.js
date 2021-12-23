@@ -84,6 +84,13 @@ const DetailProductScreen = ({navigation, route}) => {
             );
           },
         )}
+        <TouchableOpacity style={styles.containerAddProduct} onPress={() => {
+          navigation.navigate('AddProduct')
+        }}>
+          <View style={styles.addProduct}>
+            <Text style={styles.textAdd}>Add New Product</Text>
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     </>
   );
@@ -139,6 +146,26 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: '400',
       color: '#838383'
+  },
+  containerAddProduct: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 20
+  },
+  addProduct: {
+    backgroundColor: '#0099ee',
+    width: 150,
+    height: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textAdd: {
+    fontFamily: 'Roboto',
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#fff'
   }
 });
 
