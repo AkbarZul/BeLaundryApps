@@ -32,8 +32,11 @@ const HomeScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getProducts();
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <>
       <ScrollView
@@ -133,8 +136,7 @@ const HomeScreen = ({navigation}) => {
                       <Text style={styles.textCategory}>{category_name}</Text>
                       <Text style={styles.textProduct}>{product_name}</Text>
                       <Text style={styles.textProductPrice}>
-                        $ 
-                        {product_price}.00/pc
+                        ${product_price}.00/pc
                       </Text>
                     </View>
                   </LinearGradient>

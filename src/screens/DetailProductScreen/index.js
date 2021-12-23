@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   containerTextCat: {
-      width: 69,
+      width: 90,
       height: 30,
       backgroundColor: '#caecff',
       display: 'flex',
